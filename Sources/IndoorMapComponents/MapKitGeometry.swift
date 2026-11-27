@@ -1,0 +1,39 @@
+import MapKit
+
+extension IndoorMapCoordinate {
+    var clCoordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+}
+
+enum MapKitGeometry {
+    static func overlays(for geometry: IndoorMapGeometry) -> [any MKOverlay] {
+        switch geometry {
+        case .point: return []
+        case .lineString(let points):
+            guard points.count >= 2, points.allSatisfy(\.isValid) else { return [] }
+            return [MKPolyline(coordinates: points.map(\.clCoordinate), count: points.count)]
+        case .polygon(let rings):
+            return polygon(rings).map { [$0] } ?? []
+        case .multiPolygon(let polygons):
+            return polygons.compactMap { polygon($0) }
+        }
+    }
+
+    static func mapRect(for geometry: IndoorMapGeometry) -> MKMapRect {
+        geometry.coordinates.reduce(MKMapRect.null) { rect, coordinate in
+            guard coordinate.isValid else { return rect }
+            let point = MKMapPoint(coordinate.clCoordinate)
+            return rect.union(MKMapRect(x: point.x, y: point.y, width: 0.1, height: 0.1))
+        }
+    }
+
+    private static func polygon(_ rings: [[IndoorMapCoordinate]]) -> MKPolygon? {
+        guard let outer = rings.first, rings.allSatisfy({ $0.count >= 3 && $0.allSatisfy(\.isValid) })
+        else { return nil }
+        let holes = rings.dropFirst().map {
+            MKPolygon(coordinates: $0.map(\.clCoordinate), count: $0.count)
+        }
+        return MKPolygon(coordinates: outer.map(\.clCoordinate), count: outer.count, interiorPolygons: holes)
+    }
+}
