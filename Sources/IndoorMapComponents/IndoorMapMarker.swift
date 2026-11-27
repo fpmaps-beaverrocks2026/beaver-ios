@@ -11,27 +11,27 @@ public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
             self == .favorite || self == .stairs || self == .elevator
         }
 
-        var assetName: String? {
+        var systemImage: String {
             switch self {
-            case .favorite: "annotation_liked"
-            case .stairs: "annotation_stairs"
-            case .elevator: "annotation_elevator"
-            case .toilet: "annotation_toilet"
-            case .shop: "annotation_convenienceStore"
-            case .printer: "annotation_printer"
-            case .media: "annotation_tv"
-            case .cafe: "annotation_cafe"
-            case .plora: "annotation_plora"
-            case .conferenceRoom: "annotation_conferenceRoom"
-            case .gamingRoom: "annotation_gamingRoom"
-            case .groupStudyRoom: "annotation_groupStudyRoom"
-            case .relaxZone: "annotation_relaxZone"
-            case .waterDispenser: "annotation_waterDispenser"
-            case .entranceDesk: "annotation_entranceDesk"
-            case .circulationDesk: "annotation_circulationDesk"
-            case .computer: "annotation_computer"
-            case .nursingRoom: "annotation_nursingRoom"
-            case .other: nil
+            case .favorite: "heart.fill"
+            case .stairs: "stairs"
+            case .elevator: "arrow.up.arrow.down.circle.fill"
+            case .toilet: "toilet.fill"
+            case .shop: "cart.fill"
+            case .printer: "printer.fill"
+            case .media: "tv.fill"
+            case .cafe: "cup.and.saucer.fill"
+            case .plora: "leaf.fill"
+            case .conferenceRoom: "person.2.fill"
+            case .gamingRoom: "gamecontroller.fill"
+            case .groupStudyRoom: "person.3.fill"
+            case .relaxZone: "sofa.fill"
+            case .waterDispenser: "drop.fill"
+            case .entranceDesk: "info.circle.fill"
+            case .circulationDesk: "book.closed.fill"
+            case .computer: "desktopcomputer"
+            case .nursingRoom: "figure.child"
+            case .other: "mappin.circle.fill"
             }
         }
     }

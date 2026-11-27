@@ -8,11 +8,13 @@ final class IndoorMapAnnotationView: MKAnnotationView {
     private let iconView = UIImageView()
     private let nameLabel = UILabel()
     private let countBadge = UILabel()
+    private static let iconSize = CGSize(width: 22, height: 22)
+    private static let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold)
     private static let maximumNameWidth: CGFloat = 120
 
     override init(annotation: (any MKAnnotation)?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        bounds = CGRect(origin: .zero, size: MapAnnotationImage.size)
+        bounds = CGRect(origin: .zero, size: Self.iconSize)
         centerOffset = .zero
         clipsToBounds = false
         backgroundColor = .clear
@@ -25,6 +27,7 @@ final class IndoorMapAnnotationView: MKAnnotationView {
         clusteringIdentifier = nil
         isAccessibilityElement = true
         iconView.contentMode = .scaleAspectFit
+        iconView.preferredSymbolConfiguration = Self.symbolConfiguration
         iconView.isUserInteractionEnabled = false
         iconView.accessibilityIdentifier = "home-marker-icon"
         nameLabel.textAlignment = .center
@@ -64,8 +67,9 @@ final class IndoorMapAnnotationView: MKAnnotationView {
         self.annotation = annotation
         self.onActivate = onActivate
         let marker = annotation.marker
-        iconView.image = marker.kind.assetName.flatMap(MapAnnotationImage.asset(named:))
-            ?? MapAnnotationImage.symbol(named: "mappin.circle.fill", tintColor: .systemCyan)
+        iconView.image = (UIImage(systemName: marker.kind.systemImage)
+            ?? UIImage(systemName: "mappin.circle.fill"))?.withRenderingMode(.alwaysTemplate)
+        iconView.tintColor = marker.kind == .favorite ? .systemPink : .white
         let font = UIFont.systemFont(ofSize: 14)
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center

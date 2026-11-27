@@ -46,7 +46,7 @@ struct VenueMap: View {
 }
 ```
 
-항목의 찜 버튼에는 `favorites.toggle(itemID)` 또는 `favorites.setFavorite(_:for:)`를 연결합니다. 편의시설을 숨긴 상태에서도 계단, 엘리베이터, 찜은 표시됩니다. 앱의 지도 데이터와 항목 위치는 호출부에서 공급합니다. 원본 마커 PNG는 패키지 리소스에 들어 있습니다.
+항목의 찜 버튼에는 `favorites.toggle(itemID)` 또는 `favorites.setFavorite(_:for:)`를 연결합니다. 편의시설을 숨긴 상태에서도 계단, 엘리베이터, 찜은 표시됩니다. 앱의 지도 데이터와 항목 위치는 호출부에서 공급합니다. 지도 마커는 시설 종류별로 기본 SF Symbols를 사용합니다.
 
 ## 바텀시트
 
@@ -73,4 +73,4 @@ struct MapWithSheet<MapContent: View, Details: View>: View {
 
 경로 미리보기 스타일에는 `ResizableBottomSheet`를 사용합니다. `BottomSheetPresentation`을 바인딩하고 전체 레이아웃 크기와 해당 safe area를 전달합니다. 본문, 하단 버튼, 펼쳤을 때의 배경은 각각 View로 전달합니다. 접혔을 때 층 배지 등을 표시하려면 `accessory`를 추가합니다. 본문이 스크롤되는 경우 `isContentAtTop`을 스크롤 위치와 동기화하면 본문이 맨 위에 있을 때 아래로 드래그해 시트를 접을 수 있습니다. `onCoveredHeightChange`로 접힌 영역의 높이를 받아 지도 초기 표시와 층 전환에 사용하는 뷰포트 여백으로 전달할 수 있습니다.
 
-지도 표시, 마커 이미지와 바텀시트는 [POSTECH Library](https://github.com/adap-c6-fingerprint/postech-library/tree/c28a06e32434d0ccf8dccdc2a03ff1140757e379)의 구현을 기반으로 합니다.
+지도 표시, 마커 동작과 바텀시트는 [POSTECH Library](https://github.com/adap-c6-fingerprint/postech-library/tree/c28a06e32434d0ccf8dccdc2a03ff1140757e379)의 구현을 기반으로 합니다.
