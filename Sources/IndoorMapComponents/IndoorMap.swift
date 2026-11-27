@@ -1,5 +1,6 @@
 import Foundation
 
+/// 실내 지도 하나를 그리는 데 필요한 장소, 층, 공간과 시설 정보를 모아 둡니다.
 public struct IndoorMap: Equatable, Sendable {
     public let venue: IndoorMapElement
     public let floors: [IndoorMapFloor]
@@ -12,6 +13,7 @@ public struct IndoorMap: Equatable, Sendable {
     }
 }
 
+/// 층 하나의 이름, 아래층과 위층을 나누는 순서, 지도에 그릴 범위를 담습니다.
 public struct IndoorMapFloor: Identifiable, Equatable, Sendable {
     public let id: UUID
     public let ordinal: Int
@@ -26,6 +28,8 @@ public struct IndoorMapFloor: Identifiable, Equatable, Sendable {
     }
 }
 
+/// 방, 출입구, 편의시설처럼 지도에 표시할 항목 하나입니다.
+/// 항목의 종류와 이름, 속한 층, 위치나 모양을 담습니다.
 public struct IndoorMapElement: Identifiable, Equatable, Sendable {
     public enum Kind: String, Hashable, Sendable {
         case venue, footprint, unit, section, fixture, opening, amenity
@@ -61,6 +65,7 @@ public struct IndoorMapElement: Identifiable, Equatable, Sendable {
     }
 }
 
+/// 지도 위 한 지점을 위도와 경도로 나타냅니다.
 public struct IndoorMapCoordinate: Hashable, Sendable {
     public let latitude: Double
     public let longitude: Double
@@ -75,7 +80,7 @@ public struct IndoorMapCoordinate: Hashable, Sendable {
             && (-90...90).contains(latitude) && (-180...180).contains(longitude)
     }
 
-    // The amenity clustering distance is measured at building scale.
+    /// 건물 안의 가까운 두 지점 사이 거리를 미터로 대략 계산합니다.
     func distanceMeters(to other: Self) -> Double {
         let metersPerLatitude = 111_320.0
         let metersPerLongitude = metersPerLatitude * cos((latitude + other.latitude) / 2 * .pi / 180)
@@ -84,10 +89,11 @@ public struct IndoorMapCoordinate: Hashable, Sendable {
     }
 }
 
+/// 방의 바깥선이나 시설의 위치를 점, 선, 영역으로 나타냅니다.
 public enum IndoorMapGeometry: Hashable, Sendable {
     case point(IndoorMapCoordinate)
     case lineString([IndoorMapCoordinate])
-    /// The first ring is the exterior. Subsequent rings are holes.
+    /// 첫 번째 둘레는 바깥선이고, 나머지는 가운데 비워 둘 부분의 둘레입니다.
     case polygon([[IndoorMapCoordinate]])
     case multiPolygon([[[IndoorMapCoordinate]]])
 

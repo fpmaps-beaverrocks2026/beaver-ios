@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// A two-height, nonmodal sheet intended for a bottom-aligned overlay.
+/// 화면 아래에서 접거나 펼칠 수 있는 창입니다.
+/// 손잡이를 누르거나 위아래로 밀면 높이가 바뀝니다. 창 밖의 화면도 계속 사용할 수 있습니다.
 public struct BottomSheet<Content: View>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Binding private var isExpanded: Bool
@@ -10,7 +11,8 @@ public struct BottomSheet<Content: View>: View {
     private let accessibilityIdentifier: String
     private let content: () -> Content
 
-    /// Heights include the grabber. Supply the bottom safe area separately if the host extends under it.
+    /// 접었을 때와 펼쳤을 때의 높이에는 손잡이 공간을 포함합니다.
+    /// 창이 화면 맨 아래까지 닿는다면 홈 표시줄을 위한 여백은 따로 넘깁니다.
     public init(
         isExpanded: Binding<Bool>,
         collapsedHeight: CGFloat,

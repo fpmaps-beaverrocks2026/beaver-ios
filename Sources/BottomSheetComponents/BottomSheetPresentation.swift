@@ -1,8 +1,9 @@
 import Foundation
 
+/// 화면 아래의 창이 열려 있는지, 움직이는 중인지, 얼마나 펼쳐졌는지 기억합니다.
 public struct BottomSheetPresentation: Equatable, Sendable {
     public var isExpanded: Bool
-    /// Updated by callers that supply scrollable content.
+    /// 안쪽 목록의 맨 위가 보이는지 기록합니다. 맨 위에서 아래로 밀면 창을 접을 수 있습니다.
     public var isContentAtTop = true
     public internal(set) var isMoving = false
     var dragProgress: CGFloat?
@@ -11,7 +12,10 @@ public struct BottomSheetPresentation: Equatable, Sendable {
         self.isExpanded = isExpanded
     }
 
+    /// 창이 열려 있거나 움직이는 동안 펼친 내용을 보여 줍니다.
     public var showsExpandedContent: Bool { isExpanded || isMoving }
+
+    /// 접힌 높이는 0, 펼친 높이는 1입니다. 움직이는 동안에는 그 사이 값을 사용합니다.
     public var expansionProgress: CGFloat { dragProgress ?? (isExpanded ? 1 : 0) }
 
     func canBeginDrag(translation: CGSize) -> Bool {
@@ -19,6 +23,7 @@ public struct BottomSheetPresentation: Equatable, Sendable {
         return !isExpanded || (translation.height > 0 && isContentAtTop)
     }
 
+    /// 손가락을 얼마나 멀리, 얼마나 빠르게 밀었는지 보고 창을 접을지 펼칠지 정합니다.
     func targetIsExpanded(translation: CGFloat, predictedTranslation: CGFloat) -> Bool {
         if isExpanded {
             return !(translation >= 48 || predictedTranslation >= 80)

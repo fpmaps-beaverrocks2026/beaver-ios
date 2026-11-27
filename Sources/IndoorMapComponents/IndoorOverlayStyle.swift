@@ -1,7 +1,7 @@
 import MapKit
 import UIKit
 
-/// 실내 지도 도형 하나를 그리는 색·선 두께. 같은 값이면 하나의 overlay로 묶을 수 있다.
+/// 지도에 그릴 모양의 안쪽 색, 테두리 색과 선 굵기를 담습니다.
 struct IndoorOverlayStyle: Hashable {
     var fillColor: UIColor?
     var strokeColor: UIColor?
@@ -14,8 +14,8 @@ struct IndoorOverlayStyle: Hashable {
     }
 }
 
-/// 그리기 순서를 유지하면서 같은 스타일이 이어지는 도형을 `MKMultiPolygon`·`MKMultiPolyline`으로 묶는다.
-/// MapKit은 overlay를 추가할 때마다 고정 비용이 들어서, 층 도형 수백 개를 따로 추가하면 화면 진입이 멈춘다.
+/// 같은 색과 선 굵기로 이어서 그릴 모양을 한 번에 그릴 수 있게 묶습니다.
+/// 지도에 올릴 묶음의 수가 줄어 층을 더 빠르게 보여 줄 수 있습니다.
 struct IndoorOverlayBatcher {
     private var batches: [(overlay: any MKOverlay, style: IndoorOverlayStyle)] = []
     private var currentStyle: IndoorOverlayStyle?

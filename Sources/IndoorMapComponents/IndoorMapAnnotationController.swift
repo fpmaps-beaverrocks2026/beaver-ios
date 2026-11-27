@@ -1,5 +1,6 @@
 import MapKit
 
+/// 지도에 새 표시를 추가하고 사라지거나 바뀐 표시를 지웁니다. 그대로인 표시는 남겨 둡니다.
 @MainActor
 final class IndoorMapAnnotationController {
     private var annotations: [String: IndoorMapPointAnnotation] = [:]
@@ -21,6 +22,7 @@ final class IndoorMapAnnotationController {
     }
 }
 
+/// 지도 앱이 위치와 이름을 읽을 수 있게 지도 표시 하나를 전달합니다.
 final class IndoorMapPointAnnotation: NSObject, MKAnnotation {
     let marker: IndoorMapMarker
     var coordinate: CLLocationCoordinate2D { marker.coordinate.clCoordinate }

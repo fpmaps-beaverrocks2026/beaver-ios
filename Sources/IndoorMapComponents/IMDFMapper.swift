@@ -1,5 +1,7 @@
 import Foundation
 
+/// 파일에서 읽은 방과 시설을 알맞은 층에 연결해 실내 지도를 만듭니다.
+/// 같은 항목 번호가 두 번 나오거나 존재하지 않는 층을 가리키면 문제를 알려 줍니다.
 nonisolated struct IMDFMapper {
     func map(
         collections: [String: IMDFFeatureCollectionDTO]
@@ -90,6 +92,7 @@ nonisolated struct IMDFMapper {
         return collection.features
     }
 
+    /// 시설에 적힌 층과 시설이 속한 방의 층을 확인해 한 층으로 정합니다.
     private func amenityFloor(
         _ feature: IMDFFeatureDTO, unitFloors: [UUID: UUID], floorIDs: Set<UUID>
     ) throws -> UUID {

@@ -1,11 +1,13 @@
 import MapKit
 
 extension IndoorMapCoordinate {
+    /// 위도와 경도를 화면의 지도가 읽을 수 있는 형태로 바꿉니다.
     var clCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 }
 
+/// 실내 지도에서 읽은 선과 영역을 화면에 그릴 수 있는 형태로 바꿉니다.
 enum MapKitGeometry {
     static func overlays(for geometry: IndoorMapGeometry) -> [any MKOverlay] {
         switch geometry {
@@ -20,6 +22,7 @@ enum MapKitGeometry {
         }
     }
 
+    /// 지도 모양에 속한 모든 점을 담는 사각형으로 화면에 보여 줄 범위를 정합니다.
     static func mapRect(for geometry: IndoorMapGeometry) -> MKMapRect {
         geometry.coordinates.reduce(MKMapRect.null) { rect, coordinate in
             guard coordinate.isValid else { return rect }

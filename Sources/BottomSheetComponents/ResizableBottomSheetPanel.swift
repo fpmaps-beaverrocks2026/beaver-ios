@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// 사용자가 손가락을 움직이는 만큼 안쪽 내용이 보이는 높이를 바꿉니다.
+/// 손을 떼면 움직인 방향과 거리에 따라 접거나 펼칩니다.
 struct ResizableBottomSheetPanel<Content: View>: View {
     @Binding var presentation: BottomSheetPresentation
     let collapsedHeight: CGFloat
@@ -85,6 +87,8 @@ struct ResizableBottomSheetPanel<Content: View>: View {
             }
     }
 
+    /// 손을 뗀 뒤 창을 정해진 높이로 옮깁니다.
+    /// 사용자가 기기에서 움직임 줄이기를 켜면 바로 해당 높이로 바꿉니다.
     private func settle(expanded: Bool) {
         let id = UUID()
         motionID = id

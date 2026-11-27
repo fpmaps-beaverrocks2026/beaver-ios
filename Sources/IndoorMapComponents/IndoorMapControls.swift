@@ -1,10 +1,12 @@
 import SwiftUI
 
+/// 층 버튼을 보여 주고, 누른 층의 지도가 열리도록 선택을 바꿉니다.
 public struct IndoorMapFloorPicker: View {
     private let floors: [IndoorMapFloor]
     private let defaultFloorID: UUID?
     @Binding private var selection: UUID?
 
+    /// 층 목록과 지도에서 사용하는 선택 값을 넘깁니다. 선택한 층이 없으면 목록의 첫 층을 보여 줍니다.
     public init(floors: [IndoorMapFloor], selection: Binding<UUID?>) {
         self.floors = floors.sorted { $0.ordinal > $1.ordinal }
         self.defaultFloorID = floors.first?.id
@@ -44,6 +46,7 @@ public struct IndoorMapFloorPicker: View {
     }
 }
 
+/// 화장실이나 카페 같은 편의시설 표시를 켜고 끄는 버튼입니다.
 public struct IndoorMapAmenitiesToggle: View {
     @Binding private var showsAmenities: Bool
 

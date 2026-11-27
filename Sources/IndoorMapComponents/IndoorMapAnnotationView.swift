@@ -1,6 +1,8 @@
 import MapKit
 import UIKit
 
+/// 지도 위에 시설 아이콘과 이름을 그립니다. 같은 장소에 찜한 항목이 여러 개면 개수를 표시합니다.
+/// 찜 표시를 누르거나 화면 읽기 기능으로 선택하면 찜 항목을 열도록 알립니다.
 @MainActor
 final class IndoorMapAnnotationView: MKAnnotationView {
     static let reuseID = "beaver-indoor-map-icon"

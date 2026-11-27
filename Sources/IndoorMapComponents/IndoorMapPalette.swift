@@ -1,5 +1,6 @@
 import UIKit
 
+/// 벽, 복도, 계단처럼 장소의 종류에 따라 지도를 그릴 색을 고릅니다.
 enum IndoorMapPalette {
     static let floor = gray(0x35)
     static let furniture = gray(0x55)

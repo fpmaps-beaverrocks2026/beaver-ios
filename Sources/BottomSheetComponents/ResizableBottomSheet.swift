@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// A bottom overlay with interactive resizing, an optional collapsed accessory and fixed actions.
+/// 손가락을 따라 높이가 바뀌는 아래쪽 창입니다. 버튼은 내용 아래에 놓입니다.
+/// 접혀 있을 때 창 위에 층 이름 같은 짧은 정보를 보여 줄 수 있습니다.
 public struct ResizableBottomSheet<Content: View, Actions: View, Accessory: View, ExpandedBackground: View>: View {
     @Binding private var presentation: BottomSheetPresentation
     private let availableSize: CGSize
@@ -19,7 +20,8 @@ public struct ResizableBottomSheet<Content: View, Actions: View, Accessory: View
     @State private var actionsHeight: CGFloat = 50
     @State private var renderedHeight: CGFloat = 0
 
-    /// The available size includes the safe area insets supplied here.
+    /// 전체 크기에는 화면 가장자리의 여백도 포함합니다.
+    /// 접힌 창이 차지하는 높이를 받아 지도가 가려지지 않도록 위치를 맞출 수 있습니다.
     public init(
         presentation: Binding<BottomSheetPresentation>,
         availableSize: CGSize,

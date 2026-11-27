@@ -1,5 +1,6 @@
 import Foundation
 
+/// 지도에 적힌 이름과 종류를 보고 시설에 어울리는 아이콘과 표시 위치를 정합니다.
 nonisolated enum IndoorMapAmenityMarkers {
     static func amenities(on map: IndoorMap) -> [IndoorMapMarker] {
         let markers: [(marker: IndoorMapMarker, mergeCategory: String?)] = map.features.compactMap { feature in
@@ -32,8 +33,8 @@ nonisolated enum IndoorMapAmenityMarkers {
         return merging(markers)
     }
 
-    /// 나란히 놓인 엘리베이터처럼 같은 IMDF 분류의 점 시설만 합친다.
-    /// 방(unit) 마커와 분류가 다른 시설(남자·여자·장애인 화장실 등)은 각자 자리에 남긴다.
+    /// 가까이 있는 같은 종류의 시설을 한 표시로 묶을 수 있게 시설의 종류를 확인합니다.
+    /// 방처럼 넓이가 있는 공간은 각각의 위치에 표시합니다.
     private static func mergeCategory(for feature: IndoorMapElement) -> String? {
         guard feature.kind == .amenity, case .point = feature.geometry,
               let category = feature.category?.lowercased(), !category.isEmpty else { return nil }
@@ -131,6 +132,7 @@ nonisolated enum IndoorMapAmenityMarkers {
         return nil
     }
 
+    /// 시설을 점으로 기록했다면 그 위치를 씁니다. 공간으로 기록했다면 그 안에서 아이콘을 놓을 자리를 찾습니다.
     private static func anchor(for geometry: IndoorMapGeometry) -> IndoorMapCoordinate? {
         if case .point(let coordinate) = geometry { return coordinate.isValid ? coordinate : nil }
         let points = geometry.coordinates.filter(\.isValid)

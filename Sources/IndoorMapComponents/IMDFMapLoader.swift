@@ -1,12 +1,14 @@
 import Foundation
 
+/// 한 폴더에 모인 실내 지도 파일을 읽어 앱에서 쓸 수 있는 지도를 만듭니다.
 public struct IMDFMapLoader: Sendable {
     private static let requiredFiles = ["venue", "level", "footprint", "unit", "fixture", "opening"]
     private static let optionalFiles = ["amenity", "section"]
 
     public init() {}
 
-    /// Reads an unpacked IMDF 1.0.0 directory on a concurrent executor.
+    /// 압축을 푼 실내 지도 폴더를 넘깁니다. 지도 파일은 1.0.0 버전이어야 합니다.
+    /// 꼭 필요한 파일이 없거나 파일을 읽을 수 없으면 어떤 파일에서 문제가 생겼는지 알려 줍니다.
     @concurrent
     public func load(directory: URL) async throws -> IndoorMap {
         try Task.checkCancellation()

@@ -1,6 +1,9 @@
 import Foundation
 
+/// 지도 위 한 지점에 표시할 시설이나 찜 항목 하나입니다.
+/// 표시할 층과 위치, 이름을 담고, 찜 표시에는 그 장소에서 찜한 항목들을 함께 담습니다.
 public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
+    /// 표시가 가리키는 대상에 따라 아이콘을 고를 수 있게 종류를 나눕니다.
     public enum Kind: String, CaseIterable, Sendable {
         case favorite, stairs, elevator, toilet, shop, printer, media
         case cafe, plora, conferenceRoom, gamingRoom, groupStudyRoom, relaxZone
@@ -62,11 +65,13 @@ public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
         self.favoriteIDs = favoriteIDs
     }
 
+    /// 지도에 들어 있는 시설을 찾아 층마다 표시할 목록을 만듭니다.
     public static func amenities(in map: IndoorMap) -> [Self] {
         IndoorMapAmenityMarkers.amenities(on: map)
     }
 
-    /// Groups unique favorite item IDs by place and floor. One item can have several candidate places.
+    /// 같은 층의 같은 장소에 있는 찜 항목을 표시 하나로 묶습니다. 같은 항목은 그 장소에서 한 번만 셉니다.
+    /// 항목에 가능한 장소가 여러 곳이면 각 장소에 표시할 수 있습니다.
     public static func favorites(
         _ placements: [MapFavoritePlacement],
         favoriteIDs: Set<String>,
@@ -99,13 +104,14 @@ public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
     }
 }
 
-/// An item location supplied by the host app. All placements at the same place ID and floor share a marker.
+/// 앱이 알려 준 항목의 위치입니다. 항목이 어느 층의 어느 장소에 있는지 담습니다.
 public struct MapFavoritePlacement: Sendable {
     public let itemID: String
     public let placeID: String
     public let floorID: UUID
     public let coordinate: IndoorMapCoordinate
     public let placeName: String?
+    /// 정확한 위치를 아직 확정할 수 없는 경우 이 값으로 표시합니다.
     public let isCandidate: Bool
 
     public init(

@@ -1,6 +1,8 @@
 import MapKit
 import SwiftUI
 
+/// 선택한 층의 실내 지도와 시설, 찜 표시를 보여 줍니다.
+/// 편의시설을 숨겨도 계단, 엘리베이터와 찜은 표시합니다.
 @MainActor
 public struct IndoorMapView: View {
     private let map: IndoorMap
@@ -11,6 +13,8 @@ public struct IndoorMapView: View {
     private let viewportInsets: UIEdgeInsets
     private let onSelectFavorite: (IndoorMapMarker) -> Void
 
+    /// 지도, 보여 줄 층, 지도에 표시할 항목을 넘깁니다.
+    /// 찜 표시를 눌렀을 때 할 일과 화면 아래 창처럼 지도를 가리는 부분의 여백도 정할 수 있습니다.
     public init(
         map: IndoorMap,
         floorID: UUID? = nil,
@@ -41,6 +45,7 @@ public struct IndoorMapView: View {
     }
 }
 
+/// 화면에 지도를 올리고 층이나 표시가 바뀌면 지도에 반영합니다.
 private struct MapSurface: UIViewRepresentable {
     let map: IndoorMap
     let floor: IndoorMapFloor?
@@ -125,6 +130,7 @@ private struct MapSurface: UIViewRepresentable {
             view.addOverlays(batches.map(\.overlay), level: .aboveRoads)
         }
 
+        /// 지도를 처음 보거나 층을 바꿀 때, 가려지는 부분을 피해 층 전체가 화면에 들어오게 맞춥니다.
         func fitCamera(in view: MKMapView) {
             guard let rect = pendingCameraRect, !rect.isNull, !view.bounds.isEmpty else { return }
             let padding = UIEdgeInsets(
