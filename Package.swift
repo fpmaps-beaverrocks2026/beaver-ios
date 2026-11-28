@@ -1,16 +1,18 @@
 // swift-tools-version: 6.2
 import PackageDescription
 
-/// 실내 지도와 화면 아래에서 열리는 창을 다른 iPhone·iPad 앱에서 가져다 쓸 수 있게 묶습니다.
+/// 실내 지도, 화면 아래에서 열리는 창, 공용 화면 꾸밈을 다른 iPhone·iPad 앱에서 가져다 쓸 수 있게 묶습니다.
 let package = Package(
     name: "BeaverComponents",
     platforms: [.iOS(.v26)],
     products: [
         .library(name: "IndoorMapComponents", targets: ["IndoorMapComponents"]),
         .library(name: "BottomSheetComponents", targets: ["BottomSheetComponents"]),
+        .library(name: "BeaverDesignSystem", targets: ["BeaverDesignSystem"]),
     ],
     targets: [
         .target(name: "IndoorMapComponents", resources: [.process("Resources")]),
         .target(name: "BottomSheetComponents"),
+        .target(name: "BeaverDesignSystem"),
     ]
 )

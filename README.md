@@ -6,6 +6,7 @@ iOS 26 이상에서 사용할 수 있는 Swift 6.2 패키지입니다. Xcode의 
 | --- | --- |
 | `IndoorMapComponents` | IMDF 로더, 층별 실내 지도, 편의시설과 찜 마커, 층 선택기, 편의시설 토글, 찜 ID 저장소 |
 | `BottomSheetComponents` | 길안내 스타일의 2단 바텀시트와 드래그에 따라 높이가 변하는 경로 미리보기 스타일의 바텀시트 |
+| `BeaverDesignSystem` | 공통 색, 글자 크기와 간격, 둥근 모서리, 버튼, 제목 영역, 확인 카드 |
 
 ## 실내 지도
 
@@ -73,4 +74,35 @@ struct MapWithSheet<MapContent: View, Details: View>: View {
 
 경로 미리보기 스타일에는 `ResizableBottomSheet`를 사용합니다. `BottomSheetPresentation`을 바인딩하고 전체 레이아웃 크기와 해당 safe area를 전달합니다. 본문, 하단 버튼, 펼쳤을 때의 배경은 각각 View로 전달합니다. 접혔을 때 층 배지 등을 표시하려면 `accessory`를 추가합니다. 본문이 스크롤되는 경우 `isContentAtTop`을 스크롤 위치와 동기화하면 본문이 맨 위에 있을 때 아래로 드래그해 시트를 접을 수 있습니다. `onCoveredHeightChange`로 접힌 영역의 높이를 받아 지도 초기 표시와 층 전환에 사용하는 뷰포트 여백으로 전달할 수 있습니다.
 
-지도 표시, 마커 동작과 바텀시트는 [POSTECH Library](https://github.com/adap-c6-fingerprint/postech-library/tree/c28a06e32434d0ccf8dccdc2a03ff1140757e379)의 구현을 기반으로 합니다.
+## 디자인 시스템
+
+`import BeaverDesignSystem`으로 가져온 뒤 `BeaverUI`에서 색상, 글자, 간격과 모서리 값을 고릅니다. POSTECH Library의 `PobookUI`에서 쓰던 값과 이름을 유지해 `BeaverUI.ColorToken.primaryLight`, `BeaverUI.Spacing._16`처럼 사용할 수 있습니다.
+
+`beaverTypography`는 글자 굵기와 크기, 글자 간격을 함께 적용하며 기기의 글자 크기 설정을 따릅니다. 앱에 Pretendard가 이미 등록되어 있으면 사용하고, 그 외에는 iOS 기본 글꼴로 표시합니다. 위치나 숫자를 좁은 지도 그림에 넣을 때는 `scaling: .fixed`로 크기를 고정할 수 있습니다.
+
+```swift
+import BeaverDesignSystem
+import SwiftUI
+
+struct VenueIntroduction: View {
+    let onClose: () -> Void
+    let onSkip: () -> Void
+
+    var body: some View {
+        VStack(spacing: BeaverUI.Spacing._16) {
+            BeaverUI.DismissibleHeader(
+                title: "전시장 안내",
+                subtitle: "층별 시설을 둘러보세요.",
+                onClose: onClose
+            )
+            Text("방문 전에 운영 시간을 확인해 주세요.")
+                .beaverTypography(.body2)
+            BeaverUI.UnderlinedButton("다음에 보기", action: onSkip)
+        }
+    }
+}
+```
+
+`GlassIconButton`에는 버튼 이름과 SF Symbol을 넘깁니다. `HeaderBackground`는 지도 위의 제목 뒷부분을 흐리게 합니다. `ConfirmationCard`에는 안내 문구, 버튼 이름 두 개와 각 버튼을 눌렀을 때 할 일을 넘깁니다.
+
+지도 표시, 마커 동작, 바텀시트와 디자인 시스템은 [POSTECH Library](https://github.com/adap-c6-fingerprint/postech-library/tree/c28a06e32434d0ccf8dccdc2a03ff1140757e379)의 구현을 기반으로 합니다.
