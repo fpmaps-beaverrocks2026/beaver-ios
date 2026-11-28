@@ -156,6 +156,13 @@ extension BeaverUI {
 
 extension View {
     /// 제목이나 본문에 글꼴과 줄 간격을 함께 적용합니다.
+    ///
+    /// 제목, 본문, 설명에 맞는 글자 모양을 고릅니다. 지도 위의 짧은 표시처럼 크기를 유지해야 할 때는 `scaling: .fixed`를 넘깁니다.
+    ///
+    /// ```swift
+    /// Text("전시장 안내").beaverTypography(.title1.weight(.bold))
+    /// Text("1층").beaverTypography(.caption2, scaling: .fixed)
+    /// ```
     public func beaverTypography(_ typography: BeaverUI.Typography, scaling: BeaverUI.Typography.Scaling = .dynamic) -> some View {
         modifier(TypographyModifier(typography: typography, scaling: scaling))
     }

@@ -2,6 +2,9 @@ import Foundation
 
 /// 파일에서 읽은 방과 시설을 알맞은 층에 연결해 실내 지도를 만듭니다.
 /// 같은 항목 번호가 두 번 나오거나 존재하지 않는 층을 가리키면 문제를 알려 줍니다.
+///
+/// `IMDFMapLoader`가 파일을 읽은 뒤 이 부분에 내용을 넘깁니다.
+/// 앱에서 지도 전체를 읽을 때는 `IMDFMapLoader().load(directory:)`를 사용합니다.
 nonisolated struct IMDFMapper {
     func map(
         collections: [String: IMDFFeatureCollectionDTO]

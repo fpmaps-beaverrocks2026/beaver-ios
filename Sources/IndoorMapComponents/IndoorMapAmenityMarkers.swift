@@ -1,6 +1,9 @@
 import Foundation
 
 /// 지도에 적힌 이름과 종류를 보고 시설에 어울리는 아이콘과 표시 위치를 정합니다.
+///
+/// 앱에서는 `IndoorMapMarker.amenities(in: map)`으로 표시 목록을 받아 지도에 넘깁니다.
+/// 이 파일은 목록을 만들 때 자동으로 쓰입니다.
 nonisolated enum IndoorMapAmenityMarkers {
     static func amenities(on map: IndoorMap) -> [IndoorMapMarker] {
         let markers: [(marker: IndoorMapMarker, mergeCategory: String?)] = map.features.compactMap { feature in

@@ -2,6 +2,8 @@ import MapKit
 import UIKit
 
 /// 지도에 그릴 모양의 안쪽 색, 테두리 색과 선 굵기를 담습니다.
+///
+/// `IndoorMapView`가 정한 색과 선 굵기는 이곳에 담겨 실제 지도 위의 선과 공간에 적용됩니다.
 struct IndoorOverlayStyle: Hashable {
     var fillColor: UIColor?
     var strokeColor: UIColor?
@@ -16,6 +18,8 @@ struct IndoorOverlayStyle: Hashable {
 
 /// 같은 색과 선 굵기로 이어서 그릴 모양을 한 번에 그릴 수 있게 묶습니다.
 /// 지도에 올릴 묶음의 수가 줄어 층을 더 빠르게 보여 줄 수 있습니다.
+///
+/// `IndoorMapView`는 층과 그 안의 모양을 차례로 넣은 다음 `finish()`로 그릴 묶음을 받습니다.
 struct IndoorOverlayBatcher {
     private var batches: [(overlay: any MKOverlay, style: IndoorOverlayStyle)] = []
     private var currentStyle: IndoorOverlayStyle?

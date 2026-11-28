@@ -2,6 +2,9 @@ import SwiftUI
 
 /// 사용자가 손가락을 움직이는 만큼 안쪽 내용이 보이는 높이를 바꿉니다.
 /// 손을 떼면 움직인 방향과 거리에 따라 접거나 펼칩니다.
+///
+/// 앱 화면에서 `ResizableBottomSheet`에 본문을 넣으면 이 부분이 자동으로 연결됩니다.
+/// 접힌 높이를 정하고 싶을 때는 `ResizableBottomSheet`에 `collapsedHeight`를 넘깁니다.
 struct ResizableBottomSheetPanel<Content: View>: View {
     @Binding var presentation: BottomSheetPresentation
     let collapsedHeight: CGFloat

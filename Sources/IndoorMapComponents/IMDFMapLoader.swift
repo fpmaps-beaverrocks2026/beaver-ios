@@ -9,6 +9,13 @@ public struct IMDFMapLoader: Sendable {
 
     /// 압축을 푼 실내 지도 폴더를 넘깁니다. 지도 파일은 1.0.0 버전이어야 합니다.
     /// 꼭 필요한 파일이 없거나 파일을 읽을 수 없으면 어떤 파일에서 문제가 생겼는지 알려 줍니다.
+    ///
+    /// 화면이 열릴 때 지도 폴더의 주소를 넘겨 읽습니다. 아래의 `mapFolder`는 지도 파일들이 들어 있는 폴더입니다.
+    /// 읽은 `map`을 `IndoorMapView`에 전달합니다.
+    ///
+    /// ```swift
+    /// let map = try await IMDFMapLoader().load(directory: mapFolder)
+    /// ```
     @concurrent
     public func load(directory: URL) async throws -> IndoorMap {
         try Task.checkCancellation()

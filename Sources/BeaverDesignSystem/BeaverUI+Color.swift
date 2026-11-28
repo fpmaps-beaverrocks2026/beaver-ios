@@ -2,6 +2,8 @@ import SwiftUI
 
 extension BeaverUI {
     /// 흰색부터 검정까지의 회색과 주요 강조색을 밝기별로 모아 둡니다.
+    ///
+    /// 지정된 색을 밝기별로 골라야 할 때는 `BeaverUI.ColorPrimitive.Grayscale._900`처럼 꺼내 씁니다.
     public enum ColorPrimitive {
         public enum Grayscale {
             public static let _0 = Color(beaverHex: 0xFFFFFF)
@@ -35,6 +37,13 @@ extension BeaverUI {
     }
 
     /// 글자, 버튼, 입력 칸처럼 화면에서 맡은 역할에 따라 색을 고릅니다.
+    ///
+    /// 강조색이 필요한 곳에는 아래처럼 이름으로 색을 골라 적용합니다.
+    ///
+    /// ```swift
+    /// Image(systemName: "star.fill")
+    ///     .foregroundStyle(BeaverUI.ColorToken.primaryLight)
+    /// ```
     public enum ColorToken {
         private typealias Gray = ColorPrimitive.Grayscale
         private typealias Primary = ColorPrimitive.Primary

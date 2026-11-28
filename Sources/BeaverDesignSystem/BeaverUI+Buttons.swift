@@ -3,6 +3,12 @@ import SwiftUI
 extension BeaverUI {
     /// 뒤로 가기나 닫기처럼 익숙한 동작을 원 안의 기본 아이콘으로 보여 주는 버튼입니다.
     /// 화면 읽기 기능은 버튼에 넘긴 이름을 읽습니다.
+    ///
+    /// 버튼 이름, 아이콘 이름, 눌렀을 때 할 일을 차례로 넘깁니다.
+    ///
+    /// ```swift
+    /// BeaverUI.GlassIconButton("뒤로 가기", systemImage: "chevron.left", action: goBack)
+    /// ```
     public struct GlassIconButton: View {
         private let title: String
         private let systemImage: String
@@ -31,6 +37,12 @@ extension BeaverUI {
     }
 
     /// 다음에 하기처럼 크게 강조하지 않아도 되는 동작을 밑줄 있는 글자로 보여 줍니다.
+    ///
+    /// 보이는 글자와 눌렀을 때 할 일을 넘깁니다.
+    ///
+    /// ```swift
+    /// BeaverUI.UnderlinedButton("다음에 보기", action: showLater)
+    /// ```
     public struct UnderlinedButton: View {
         private let title: String
         private let action: () -> Void

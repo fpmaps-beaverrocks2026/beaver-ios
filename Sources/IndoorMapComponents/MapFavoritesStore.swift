@@ -2,6 +2,13 @@ import Foundation
 import Observation
 
 /// 어떤 항목을 찜했는지 기기에 저장합니다. 앱을 다시 열면 이전에 저장한 찜 목록을 불러옵니다.
+///
+/// 화면에 아래 값을 둡니다. `storageKey`에는 이 찜 목록을 기억할 고유한 이름을 넣습니다.
+/// 찜 버튼이 눌리면 `favorites.toggle(itemID)`를 사용하고, 지도에 표시를 만들 때는 `favorites.favoriteIDs`를 넘깁니다.
+///
+/// ```swift
+/// @State private var favorites = MapFavoritesStore(storageKey: "beaver.map.favorites")
+/// ```
 @MainActor
 @Observable
 public final class MapFavoritesStore {

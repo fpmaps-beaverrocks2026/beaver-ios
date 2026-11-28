@@ -8,6 +8,9 @@ extension IndoorMapCoordinate {
 }
 
 /// 실내 지도에서 읽은 선과 영역을 화면에 그릴 수 있는 형태로 바꿉니다.
+///
+/// `IndoorMapView`가 층을 그릴 때 이 부분을 자동으로 씁니다.
+/// 그릴 모양은 `IndoorMapGeometry`로 만들어 `IndoorMap`에 담습니다.
 enum MapKitGeometry {
     static func overlays(for geometry: IndoorMapGeometry) -> [any MKOverlay] {
         switch geometry {

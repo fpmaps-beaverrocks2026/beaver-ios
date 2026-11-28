@@ -2,6 +2,17 @@ import SwiftUI
 
 /// 화면 아래에서 접거나 펼칠 수 있는 창입니다.
 /// 손잡이를 누르거나 위아래로 밀면 높이가 바뀝니다. 창 밖의 화면도 계속 사용할 수 있습니다.
+///
+/// 화면에 `@State private var isExpanded = false`를 두고 아래쪽에 창을 겹쳐 놓습니다.
+/// 예제의 `map`은 창 뒤에 보일 지도 화면입니다.
+///
+/// ```swift
+/// map.overlay(alignment: .bottom) {
+///     BottomSheet(isExpanded: $isExpanded, collapsedHeight: 100, expandedHeight: 300) {
+///         Text("층별 시설을 둘러보세요.")
+///     }
+/// }
+/// ```
 public struct BottomSheet<Content: View>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Binding private var isExpanded: Bool

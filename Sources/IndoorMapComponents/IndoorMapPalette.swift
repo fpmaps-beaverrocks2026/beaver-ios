@@ -1,6 +1,9 @@
 import UIKit
 
 /// 벽, 복도, 계단처럼 장소의 종류에 따라 지도를 그릴 색을 고릅니다.
+///
+/// `IndoorMapView`가 층을 그릴 때 이곳의 색을 사용합니다.
+/// 예를 들어 복도 색을 바꾸려면 이 파일의 `walkway` 값을 바꿉니다.
 enum IndoorMapPalette {
     static let floor = gray(0x35)
     static let furniture = gray(0x55)

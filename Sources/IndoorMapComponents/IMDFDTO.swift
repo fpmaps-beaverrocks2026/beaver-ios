@@ -1,6 +1,9 @@
 import Foundation
 
 /// 실내 지도 파일이 어떤 버전으로 저장됐는지 알려 줍니다.
+///
+/// 앱에서 `IMDFMapLoader().load(directory:)`에 지도 폴더를 넘기면 이 파일의 틀에 맞춰 원본을 읽습니다.
+/// 지도 파일에서 읽을 항목을 바꿀 때 이곳의 이름과 저장된 파일의 이름을 맞춥니다.
 nonisolated struct IMDFManifestDTO: Decodable {
     let version: String
 }

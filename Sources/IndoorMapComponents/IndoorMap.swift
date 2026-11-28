@@ -1,6 +1,16 @@
 import Foundation
 
 /// 실내 지도 하나를 그리는 데 필요한 장소, 층, 공간과 시설 정보를 모아 둡니다.
+///
+/// 층과 시설 정보를 이미 가지고 있다면 아래처럼 지도를 만들고 `IndoorMapView`에 넘깁니다.
+/// `floorOutline`에는 층의 바깥선을 이루는 위치를 순서대로 넣습니다.
+///
+/// ```swift
+/// let shape = IndoorMapGeometry.polygon([floorOutline])
+/// let floor = IndoorMapFloor(id: UUID(), ordinal: 0, name: "1층", geometry: shape)
+/// let venue = IndoorMapElement(sourceID: UUID(), kind: .venue, geometry: shape)
+/// let map = IndoorMap(venue: venue, floors: [floor], features: [])
+/// ```
 public struct IndoorMap: Equatable, Sendable {
     public let venue: IndoorMapElement
     public let floors: [IndoorMapFloor]

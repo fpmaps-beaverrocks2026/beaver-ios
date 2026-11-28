@@ -3,6 +3,15 @@ import SwiftUI
 
 /// 선택한 층의 실내 지도와 시설, 찜 표시를 보여 줍니다.
 /// 편의시설을 숨겨도 계단, 엘리베이터와 찜은 표시합니다.
+///
+/// 준비한 지도와 표시 목록을 넘기고, 찜 표시를 눌렀을 때 어떤 항목을 보여 줄지 정합니다.
+/// 아래 예제의 `floorID`에는 현재 선택한 층을 넣습니다. 층을 정하지 않으면 목록의 첫 층을 엽니다.
+///
+/// ```swift
+/// IndoorMapView(map: map, floorID: floorID, markers: markers) { marker in
+///     showFavorites(marker.favoriteIDs)
+/// }
+/// ```
 @MainActor
 public struct IndoorMapView: View {
     private let map: IndoorMap

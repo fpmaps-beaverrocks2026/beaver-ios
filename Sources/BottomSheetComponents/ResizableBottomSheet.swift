@@ -2,6 +2,20 @@ import SwiftUI
 
 /// 손가락을 따라 높이가 바뀌는 아래쪽 창입니다. 버튼은 내용 아래에 놓입니다.
 /// 접혀 있을 때 창 위에 층 이름 같은 짧은 정보를 보여 줄 수 있습니다.
+///
+/// 화면에 `@State private var presentation = BottomSheetPresentation()`을 두고 창을 화면 아래에 겹쳐 놓습니다.
+/// 창이 들어갈 크기와 본문, 버튼, 펼쳤을 때의 배경을 넘깁니다.
+/// 아래 예제의 `visibleSize`는 화면 가장자리 여백을 빼고 실제로 쓸 수 있는 공간의 크기입니다.
+///
+/// ```swift
+/// ResizableBottomSheet(presentation: $presentation, availableSize: visibleSize) {
+///     Text("층별 시설을 둘러보세요.")
+/// } actions: {
+///     Button("시설 보기", action: showFacilities)
+/// } expandedBackground: {
+///     Color(uiColor: .systemBackground)
+/// }
+/// ```
 public struct ResizableBottomSheet<Content: View, Actions: View, Accessory: View, ExpandedBackground: View>: View {
     @Binding private var presentation: BottomSheetPresentation
     private let availableSize: CGSize

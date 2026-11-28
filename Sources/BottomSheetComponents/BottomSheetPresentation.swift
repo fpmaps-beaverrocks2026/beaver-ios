@@ -1,6 +1,13 @@
 import Foundation
 
 /// 화면 아래의 창이 열려 있는지, 움직이는 중인지, 얼마나 펼쳐졌는지 기억합니다.
+///
+/// 아래 값을 화면에 두고 `ResizableBottomSheet`의 `presentation`에 `$presentation`을 넘깁니다.
+/// 창 안의 목록을 위아래로 넘길 수 있다면 맨 위가 보이는지 `presentation.isContentAtTop`에 기록합니다.
+///
+/// ```swift
+/// @State private var presentation = BottomSheetPresentation()
+/// ```
 public struct BottomSheetPresentation: Equatable, Sendable {
     public var isExpanded: Bool
     /// 안쪽 목록의 맨 위가 보이는지 기록합니다. 맨 위에서 아래로 밀면 창을 접을 수 있습니다.

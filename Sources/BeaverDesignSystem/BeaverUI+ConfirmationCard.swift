@@ -3,6 +3,19 @@ import SwiftUI
 extension BeaverUI {
     /// 제목과 안내 문구를 읽고 두 가지 선택지 중 하나를 고를 수 있는 카드입니다.
     /// 카드에 넣을 문구와 버튼을 눌렀을 때 할 일은 사용하는 화면에서 정합니다.
+    ///
+    /// 카드가 보일 자리에 아래 코드를 놓고, 화면에서 준비한 두 가지 동작을 넘깁니다.
+    ///
+    /// ```swift
+    /// BeaverUI.ConfirmationCard(
+    ///     title: "알림을 받을까요?",
+    ///     message: "운영 시간이 바뀌면 알려 드립니다.",
+    ///     cancelTitle: "나중에",
+    ///     confirmTitle: "받기",
+    ///     onCancel: dismissCard,
+    ///     onConfirm: enableNotifications
+    /// )
+    /// ```
     public struct ConfirmationCard: View {
         @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 

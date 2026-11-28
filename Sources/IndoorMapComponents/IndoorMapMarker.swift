@@ -2,6 +2,14 @@ import Foundation
 
 /// 지도 위 한 지점에 표시할 시설이나 찜 항목 하나입니다.
 /// 표시할 층과 위치, 이름을 담고, 찜 표시에는 그 장소에서 찜한 항목들을 함께 담습니다.
+///
+/// 시설 표시와 찜 표시를 합쳐 `IndoorMapView`의 `markers`에 넘깁니다.
+/// `placements`는 찜할 수 있는 항목들의 위치 목록입니다. `favoriteIDs`에는 이미 찜한 항목의 번호를 넣습니다.
+///
+/// ```swift
+/// let markers = IndoorMapMarker.amenities(in: map)
+///     + IndoorMapMarker.favorites(placements, favoriteIDs: favoriteIDs)
+/// ```
 public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
     /// 표시가 가리키는 대상에 따라 아이콘을 고를 수 있게 종류를 나눕니다.
     public enum Kind: String, CaseIterable, Sendable {
@@ -105,6 +113,9 @@ public struct IndoorMapMarker: Equatable, Identifiable, Sendable {
 }
 
 /// 앱이 알려 준 항목의 위치입니다. 항목이 어느 층의 어느 장소에 있는지 담습니다.
+///
+/// 같은 곳에 있는 항목들에는 같은 `placeID`를 줍니다.
+/// 이렇게 만든 위치 목록을 `IndoorMapMarker.favorites(placements, favoriteIDs: favoriteIDs)`에 넘깁니다.
 public struct MapFavoritePlacement: Sendable {
     public let itemID: String
     public let placeID: String
